@@ -1,6 +1,6 @@
 ## Tabla de multiplicar
 - Construir mediante consola la tabla de multiplicar de un número
-
+- Uso de Yargs y colors
 ## Notas
 
 ```
