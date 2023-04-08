@@ -1,32 +1,40 @@
 const fs = require('fs');
 require('colors');
 
+const ASSETS_PATH = './assets/';
 
-const crearArchivo = async (base, hasta, listar) => {
+const createFile = async (base, until, list) => {
   try {
-    let salida = '', consola = '';
+    let fileData = '',
+      consoleData = '';
 
-    for (let i = 1; i <= hasta; i++) {
-      consola += `${base} ${'x'.rainbow} ${i} ${'='.america} ${base * i}\n`;
-      salida += `${base} x ${i} = ${base * i}\n`;
+    for (let i = 1; i <= until; i++) {
+      consoleData += `${base} ${'x'.rainbow} ${i} ${'='.america} ${base * i}\n`;
+      fileData += `${base} x ${i} = ${base * i}\n`;
     }
 
-    if (listar) {
-      console.log('Tabla del', base);
+    if (list) {
+      console.log(`Table of ${base}`);
       console.log('=========='.green);
-      console.log(consola);
+      console.log(consoleData);
     }
 
-    const ruta = './salida/'
-    const fileName = `tabla-${base}.txt`;
-    fs.writeFileSync(`${ruta}${fileName}`, salida);
+    const fileName = `table-${base}.txt`;
+    fs.writeFileSync(`${ASSETS_PATH}${fileName}`, fileData);
 
     return fileName;
   } catch (error) {
+    if (error.code === 'ENOENT') {
+      return console.error(`The directory ${ASSETS_PATH} does not exist`);
+    }
+    console.error(
+      `An error occurred while creating the file: ${error.message}`
+    );
+
     throw error;
   }
 };
 
 module.exports = {
-  crearArchivo
-}
+  createFile,
+};

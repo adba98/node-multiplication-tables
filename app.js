@@ -1,7 +1,10 @@
-const { crearArchivo } = require('./helpers/multiplicar');
-const argv = require('./config/yargs');
+const { createFile } = require('./helpers/multiplicar');
+const { b: base, u: until, l: list } = require('./config/yargs');
+
 console.clear();
 
-crearArchivo(argv.b, argv.h, argv.l)
-  .then(nameFile => console.log(nameFile, 'creado.'))
-  .catch(err => console.log(err));
+createFile(base, until, list)
+  .then((fileName) => {
+    console.log(`The file '${fileName}' has been created successfully.`);
+  })
+  .catch((error) => console.error(`Error: ${error}`));
